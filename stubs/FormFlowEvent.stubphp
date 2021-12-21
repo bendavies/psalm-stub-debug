@@ -1,12 +1,33 @@
 <?php
 
-namespace Craue\FormFlowBundle\Event;
-
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Contracts\EventDispatcher\Event;
-use Craue\FormFlowBundle\Event\FormFlowEventTrait;
-
-abstract class FormFlowEvent extends Event
-{
-    use FormFlowEventTrait;
+namespace Craue\FormFlowBundle\Event {
+    class FormFlowEvent extends \Symfony\Contracts\EventDispatcher\Event
+    {
+    }
 }
+
+namespace Psr\EventDispatcher {
+    interface StoppableEventInterface
+    {
+        public function isPropagationStopped(): bool;
+    }
+}
+
+namespace Symfony\Contracts\EventDispatcher {
+
+    class Event implements \Psr\EventDispatcher\StoppableEventInterface
+    {
+        private $propagationStopped = false;
+
+        public function isPropagationStopped(): bool
+        {
+            return $this->propagationStopped;
+        }
+
+        public function stopPropagation(): void
+        {
+            $this->propagationStopped = true;
+        }
+    }
+}
+

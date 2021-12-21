@@ -1,0 +1,12 @@
+<?php
+
+namespace Craue\FormFlowBundle\Event;
+
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Contracts\EventDispatcher\Event;
+use Craue\FormFlowBundle\Event\FormFlowEventTrait;
+
+abstract class FormFlowEvent extends Event
+{
+    use FormFlowEventTrait;
+}
